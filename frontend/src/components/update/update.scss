@@ -1,0 +1,59 @@
+.update {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+  border: 1px solid lightgray;
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      .coverPic {
+      }
+      .profilepic {
+      }
+      .name {
+        width: 30%;
+        margin-top: 20px;
+      }
+      label {
+        font-size: 14px;
+      }
+      .click {
+        width: fit-content;
+        display: flex;
+        padding: 5px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(0, 0, 185);
+        color: white;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        cursor: pointer;
+      }
+    }
+    .exit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: white;
+      border: none;
+      color: grey;
+      cursor: pointer;
+    }
+  }
+}

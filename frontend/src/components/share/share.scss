@@ -1,0 +1,109 @@
+@import "../../style.scss";
+
+.share {
+  .container {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+
+    @include themify($themes) {
+      background-color: themed("bg");
+    }
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .left {
+        display: flex;
+        gap: 20px;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        input {
+          border: none;
+          background-color: lightgrey;
+          width: 100%;
+          border-radius: 5px;
+          outline: none;
+          font-size: 16px;
+          padding: 0px 10px;
+
+          @include themify($themes) {
+            background-color: themed("bgSoft");
+            color: themed("textColor");
+          }
+        }
+      }
+      .right {
+        img {
+          display: flex;
+          justify-self: center;
+          margin: auto;
+          width: 90%;
+          object-fit: cover;
+        }
+      }
+    }
+    hr {
+      background-color: lightgray;
+      height: 0.1px;
+      border: none;
+      margin: 20px 0px;
+
+      @include themify($themes) {
+        background-color: themed("textColorSoft");
+      }
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      .left {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        input {
+        }
+        label {
+        }
+      }
+      .item {
+        display: flex;
+        gap: 5px;
+        color: rgb(80, 80, 80);
+
+        @include themify($themes) {
+          color: themed("textColor");
+        }
+        span {
+          color: grey;
+          font-size: 15px;
+          @include themify($themes) {
+            color: themed("textColor");
+          }
+        }
+      }
+      .right {
+        button {
+          padding: 10px 20px;
+          border: none;
+          background-color: rgb(62, 62, 255);
+          color: white;
+          border-radius: 20px;
+
+          @include themify($themes) {
+            background-color: themed("logo");
+            color: themed("bg");
+          }
+        }
+      }
+    }
+  }
+}

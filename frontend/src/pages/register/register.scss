@@ -1,0 +1,91 @@
+.register {
+  height: 100vh;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    display: flex;
+    width: 70%;
+    min-height: 600px;
+    flex-direction: row-reverse;
+
+    .left {
+      flex: 2;
+      background: linear-gradient(
+          rgba(7, 101, 124, 0.616),
+          rgba(124, 87, 7, 0.164)
+        ),
+        url("https://cdn.pixabay.com/photo/2020/11/21/11/17/houses-5763699_1280.jpg")
+          center;
+      background-size: cover;
+      border-radius: 10px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      align-items: center;
+      justify-content: start;
+      h1 {
+        font-size: 80px;
+        line-height: 3px;
+        color: white;
+      }
+      p {
+        color: white;
+      }
+      span {
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+      }
+      button {
+        width: 150%;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background-color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 16px;
+        color: #241b00;
+      }
+    }
+    .right {
+      flex: 3;
+      background-color: white;
+      border-radius: 10px;
+      gap: 50px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h1 {
+        color: rgb(0, 0, 0);
+        font-size: 50px;
+        line-height: 50px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        input {
+          border: none;
+          border-bottom: 1px solid lightblue;
+          padding: 20px 10px;
+        }
+        button {
+          width: 50%;
+          padding: 10px;
+          border: none;
+          background-color: #0044ff;
+          color: rgb(255, 255, 255);
+          border-radius: 10px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-inline-start: 25%;
+        }
+      }
+    }
+  }
+}

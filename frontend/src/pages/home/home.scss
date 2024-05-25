@@ -1,0 +1,17 @@
+@import "../../style.scss";
+
+.home {
+  position: sticky;
+  top: 57px;
+  height: calc(100vh - 70px);
+  overflow: scroll;
+  min-height: 100vh;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+  }
+}

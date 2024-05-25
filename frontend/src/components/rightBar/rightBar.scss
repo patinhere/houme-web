@@ -1,0 +1,98 @@
+@import "../../style.scss";
+
+.rightBar {
+  flex: 2;
+  position: sticky;
+  top: 57px;
+  height: calc(100vh - 70px);
+  overflow: scroll;
+
+  @include mobile() {
+    display: none;
+  }
+
+  @include large() {
+    display: none;
+  }
+
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+    color: themed("textColorSoft");
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .container {
+    .item {
+      box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+      -webkit-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+      -moz-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
+      padding: 20px;
+      margin: 20px;
+      background-color: white;
+      border-radius: 10px;
+      @include themify($themes) {
+        background-color: themed("bg");
+        color: themed("textColor");
+      }
+
+      span {
+        color: grey;
+      }
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 15px 10px;
+
+        .userInfo {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          position: relative;
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          .online {
+            width: 10px;
+            height: 10px;
+            background-color: limegreen;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 20px;
+          }
+          p {
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+            color: grey;
+            margin: 0px 0px;
+          }
+          span {
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 0px;
+            @include themify($themes) {
+              color: themed("textColorSoft");
+            }
+          }
+        }
+        .button {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+        span {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

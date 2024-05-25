@@ -1,0 +1,15 @@
+@import "../../style.scss";
+
+.posts {
+  display: flex;
+  padding: 50px;
+  flex-direction: column;
+
+  @include mobile() {
+    padding: 5px;
+  }
+
+  @include large() {
+    padding: 20px;
+  }
+}
