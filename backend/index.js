@@ -9,6 +9,7 @@ import storyRoutes from "./routes/stories.js";
 import relationshipRoutes from "./routes/relationships.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+const PORT = process.env.PORT;
 
 const app = express();
 app.use((req, res, next) => {
