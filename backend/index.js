@@ -65,6 +65,6 @@ app.use("/api/relationships", relationshipRoutes);
 //   });
 // });
 
-app.listen(8800, () => {
+app.listen(3306, () => {
   console.log("Connected");
 });
