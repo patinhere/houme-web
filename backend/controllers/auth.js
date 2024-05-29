@@ -53,6 +53,7 @@ export const login = (req, res) => {
     res
       .cookie("accessToken", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "none",
       })
       .status(200)
@@ -64,6 +65,7 @@ export const logout = (req, res) => {
   res
     .clearCookie("accessToken", {
       secure: true,
+
       sameSite: "none",
     })
     .status(200)

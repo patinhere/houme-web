@@ -17,7 +17,7 @@ const app = express();
 const corsOptions = {
   origin: "https://houme.onrender.com",
   credentials: true,
-  optionSuccessStatus: 200,
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
