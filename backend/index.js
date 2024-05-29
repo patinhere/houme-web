@@ -17,9 +17,8 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(
-  cors({
-    origin: "https://houme-hfq5okh1o-pattys-projects-bf4b9ecc.vercel.app",
-  })
+  cors()
+  //{origin: "https://houme-hfq5okh1o-pattys-projects-bf4b9ecc.vercel.app",0}
 );
 app.use(cookieParser());
 
