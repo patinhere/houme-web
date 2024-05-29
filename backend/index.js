@@ -16,10 +16,13 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
-app.use(
-  cors()
-  //{origin: "https://houme-hfq5okh1o-pattys-projects-bf4b9ecc.vercel.app",0}
-);
+
+const corsOptions = {
+  origin: "*",
+  Credential: true,
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
