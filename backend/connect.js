@@ -1,5 +1,6 @@
 import mysql from "mysql";
-import "dotenv/config";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 //auth problem
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Pat022603!';

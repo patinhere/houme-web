@@ -9,7 +9,6 @@ import storyRoutes from "./routes/stories.js";
 import relationshipRoutes from "./routes/relationships.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
-const PORT = process.env.PORT;
 
 const app = express();
 app.use((req, res, next) => {
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://houme-hfq5okh1o-pattys-projects-bf4b9ecc.vercel.app",
   })
 );
 app.use(cookieParser());
@@ -65,6 +64,6 @@ app.use("/api/relationships", relationshipRoutes);
 //   });
 // });
 
-app.listen(3306, () => {
+app.listen(8800, () => {
   console.log("Connected");
 });
