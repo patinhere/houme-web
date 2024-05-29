@@ -9,8 +9,23 @@ import storyRoutes from "./routes/stories.js";
 import relationshipRoutes from "./routes/relationships.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
+
+const corsOptions = {
+  origin: "https://houme.onrender.com",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+app.use(cookieParser());
+
+app.use(express.json());
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Origin", req.header("origin"));
@@ -21,15 +36,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(express.json());
-
-const corsOptions = {
-  origin: "https://houme.onrender.com",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-app.use(cookieParser());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -72,6 +78,8 @@ app.use("/api/relationships", relationshipRoutes);
 //   });
 // });
 
-app.listen(8800, () => {
+const Port = process.env.PORT;
+
+app.listen(Port, () => {
   console.log("Connected");
 });
