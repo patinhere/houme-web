@@ -13,15 +13,14 @@ import multer from "multer";
 const app = express();
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", req.header("origin"));
   res.header("Access-Control-Allow-Methods", "*");
-  res.header("Access-Control-Allow-Headers", "*");
   next();
 });
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000",
   Credential: true,
   optionSuccessStatus: 200,
 };
