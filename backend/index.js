@@ -12,7 +12,7 @@ import multer from "multer";
 
 const app = express();
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Origin", req.header("origin"));
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header(
@@ -25,7 +25,7 @@ app.use(express.json());
 
 const corsOptions = {
   origin: "https://houme.onrender.com",
-  Credential: true,
+  credentials: true,
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
