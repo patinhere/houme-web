@@ -15,8 +15,7 @@ export const AuthContextProvider = ({ children }) => {
       inputs,
       {
         withCredentials: true,
-      },
-      { headers: { Authorization: `Bearer${accessToken}` } }
+      }
     );
     setCurrentUser(res.data);
   };
