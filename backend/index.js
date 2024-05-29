@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://houme-4dw6jox9d-pattys-projects-bf4b9ecc.vercel.app/",
+  origin: "https://houme-4dw6jox9d-pattys-projects-bf4b9ecc.vercel.app",
   Credential: true,
   optionSuccessStatus: 200,
 };
