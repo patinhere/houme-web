@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ["https://houme.onrender.com", "http://localhost:3000/"];
+const allowedOrigins = ["https://houme.onrender.com", "http://localhost:3000"];
 
 const corsOptions = {
   origin: (origin, callback) => {
