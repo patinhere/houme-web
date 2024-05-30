@@ -14,8 +14,16 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = ["https://houme.onrender.com", "http://localhost:3000/"];
+
 const corsOptions = {
-  origin: "https://houme.onrender.com",
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by cors"));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
 };
@@ -27,8 +35,12 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", req.header("origin"));
+
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header(
     "Access-Control-Allow-Headers",
