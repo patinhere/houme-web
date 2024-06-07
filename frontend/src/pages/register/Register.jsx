@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { makeRequest } from "../../axios";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -9,6 +10,10 @@ const Register = () => {
     email: "",
     password: "",
     name: "",
+    gender: "",
+    avatar: "",
+    avatarHead: "",
+    avatarFullbody: "",
   });
 
   const navigate = useNavigate();
@@ -25,11 +30,60 @@ const Register = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    const gen = inputs.gender === "female" ? "female" : "male";
+    const random = Math.floor(Math.random() * 10) + 1;
+    const avatarFile = "/upload/avatar/glb/" + gen + random + ".glb";
+    const avatarHeadFile =
+      "/upload/avatar/head/" + gen + "Head" + random + ".png";
+    const avatarFullbodyFile =
+      "/upload/avatar/fullbody/" + gen + "Fullbody" + random + ".png";
+
+    formData.set("file", avatarFile);
+    try {
+      const res = await makeRequest.post("/uploadAvatar", formData);
+      setInputs((prev) => ({
+        ...prev,
+        avatar: res.url,
+      }));
+
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+
+    formData.set("file", avatarHeadFile);
+    try {
+      const res = await makeRequest.post("/uploadAvatar", formData);
+      setInputs((prev) => ({
+        ...prev,
+        avatarHead: res.url,
+      }));
+
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+
+    formData.set("file", avatarFullbodyFile);
+    try {
+      const res = await makeRequest.post("/uploadAvatar", formData);
+      setInputs((prev) => ({
+        ...prev,
+        avatarFullbody: res.url,
+      }));
+
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+
     try {
       await axios.post(
         "https://houme-web.onrender.com/api/auth/register",
         inputs
       );
+
       navigate("/login");
     } catch (err) {
       setErr(err.response.data);
@@ -79,6 +133,29 @@ const Register = () => {
               name="name"
               onChange={handleChange}
             />
+            <fieldset>
+              <legend>Select gender:</legend>
+              <div>
+                <input
+                  type="radio"
+                  id="female"
+                  value="female"
+                  name="gender"
+                  onChange={handleChange}
+                />
+                <label for="female">Female</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="male"
+                  value="male"
+                  name="gender"
+                  onChange={handleChange}
+                />
+                <label for="male">Male</label>
+              </div>
+            </fieldset>
             {err && err}
             <button onClick={handleClick}>Register</button>
           </form>

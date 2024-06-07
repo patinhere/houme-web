@@ -2,6 +2,7 @@ import "./posts.scss";
 import Post from "../post/Post";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { Link, Navigate } from "react-router-dom";
 
 const Posts = ({ userId }) => {
   const { isLoading, error, data } = useQuery({
@@ -14,11 +15,13 @@ const Posts = ({ userId }) => {
 
   return (
     <div className="posts">
-      {error
-        ? "Something went wrong!"
-        : isLoading
-        ? "loading"
-        : data.map((post) => <Post post={post} key={post.id} />)}
+      {error ? (
+        <Navigate to="/login" />
+      ) : isLoading ? (
+        "loading"
+      ) : (
+        data.map((post) => <Post post={post} key={post.id} />)
+      )}
     </div>
   );
 };

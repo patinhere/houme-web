@@ -5,51 +5,82 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import { useEffect, useState, useContext } from "react";
 import { AvatarAnimationContext } from "../../context/AvatarAnimationContext";
+import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 
-const Avatar = ({ userId, animationIndex, setAnimationIndex }) => {
-  const avatar = useGLTF("/upload/avatar" + userId + ".glb");
-  const { actions, names } = useAnimations(avatar.animations, avatar.scene);
-  let mixer = new THREE.AnimationMixer(names);
-  const actionDied = actions[names[0]];
-  const actionExcited = actions[names[1]];
-  const actionPunch = actions[names[10]];
+const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
+  const avatarUser = useGLTF("/upload/avatar" + userId + ".glb");
+  const avatarModel = useGLTF("/upload/avatarModel" + ".glb");
+
+  const anim = avatarModel.scene;
+  const animClone = SkeletonUtils.clone(anim);
+  avatarUser.scene = animClone;
+
+  const clock = new THREE.Clock();
+  // const { actions, names } = useAnimations(
+  //   avatarModel.animations,
+  //   avatarModel.scene
+  // );
+
+  const mixer = new THREE.AnimationMixer(avatarUser.scene);
+  const actions = [];
+  avatarModel.animations.forEach((clip) => {
+    actions.push(mixer.clipAction(clip));
+  });
+
+  console.log(actions);
+  console.log(animationIndex);
+  //actions[0].play();
+
+  const actionDied = actions[0];
+  const actionExcited = actions[1];
+  const actionPunch = actions[10];
+
+  console.log(actionExcited);
+  //const actionDied = actions[names[0]];
+  //const actionExcited = actions[names[1]];
+  //const actionPunch = actions[names[10]];
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const delta = clock.getDelta();
+    mixer.update(delta);
+  }
+
+  animate();
 
   useEffect(() => {
-    console.log(animationIndex);
     if (animationIndex === 0) {
+      //Died
       actionDied.reset().fadeIn(0.5).play();
-      //actionDied.ended = false;
       actionDied.setLoop(THREE.LoopOnce, 1);
       actionDied.clampWhenFinished = true;
-      //actionDied.paused = false;
-      //actionDied.play(0);
       setTimeout(() => {
         setAnimationIndex(1);
       }, [13000]);
     } else if (animationIndex === 10) {
+      //punch
       actionPunch.reset().fadeIn(0.5).play();
-      //actionPunch.ended = false;
       actionPunch.setLoop(THREE.LoopOnce, 1);
       actionPunch.clampWhenFinished = true;
-      //actionPunch.paused = false;
-      //actionPunch.play(0);
       setTimeout(() => {
         setAnimationIndex(1);
       }, [13000]);
     } else if (animationIndex === 1) {
+      //excited
       actionExcited.reset().fadeIn(0.5).play();
     }
+
     //actions[names[animationIndex]].reset().fadeIn(0.5).play();
 
     return () => {
-      actions[names[animationIndex]].fadeOut();
+      actions[animationIndex].fadeOut();
     };
   }, [animationIndex]);
 
   return (
     <group>
       <primitive
-        object={avatar.scene}
+        object={avatarUser.scene}
         scale={3.5}
         position-y={-3}
         rotation-x={0}
@@ -65,7 +96,7 @@ const AvatarCanvas = ({ userId, animationIndex, setAnimationIndex }) => {
         <ambientLight intensity={2.5} />
         <pointLight position={(1, 1, 1)} />
         <OrbitControls />
-        <Avatar
+        <AvatarModel
           userId={userId}
           animationIndex={animationIndex}
           setAnimationIndex={setAnimationIndex}

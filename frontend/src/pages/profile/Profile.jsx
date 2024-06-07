@@ -12,7 +12,7 @@ import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { AuthContext } from "../../context/authContext";
 import Posts from "../../components/posts/Posts";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import Update from "../../components/update/Update";
@@ -63,7 +63,9 @@ export default function Profile() {
 
   return (
     <div className="profiles">
-      {isLoading ? (
+      {error ? (
+        <Navigate to="/login" />
+      ) : isLoading ? (
         "Loading.."
       ) : (
         <>
