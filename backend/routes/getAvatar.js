@@ -3,6 +3,6 @@ import { getAvatar } from "../controllers/getAvatar.js";
 
 const router = express.Router();
 
-router.get("/:id", getAvatar);
+router.get("/", getAvatar);
 
 export default router;
