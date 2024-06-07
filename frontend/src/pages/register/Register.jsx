@@ -27,56 +27,75 @@ const Register = () => {
     }));
   };
 
+  // const fetchFile = async (filePath) => {
+  //   try {
+  //     const response = await fetch(filePath);
+  //     if (!response.ok) {
+  //       throw new Error(`Failed to fetch ${filePath}: ${response.statusText}`);
+  //     }
+  //     const blob = await response.blob();
+  //     const file = new File([blob], filePath.split("/").pop(), {
+  //       type: blob.type,
+  //     });
+  //     return file;
+  //   } catch (error) {
+  //     console.error("Error fetching the file:", error);
+  //     return null;
+  //   }
+  // };
+
+  // const uploadFile = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   try {
+  //     const res = await makeRequest.post("/uploadAvatar", formData);
+  //     return res.data.url;
+  //   } catch (err) {
+  //     console.error("Error uploading the file:", err);
+  //     return null;
+  //   }
+  // };
+
+  const getAvatar = async (random) => {
+    try {
+      const res = await makeRequest.get("/getAvatar", +random);
+      return res.data;
+    } catch (err) {
+      console.error("Error uploading the file:", err);
+      return null;
+    }
+  };
+
   const handleClick = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
     const gen = inputs.gender === "female" ? "female" : "male";
-    const random = Math.floor(Math.random() * 10) + 1;
-    const avatarFile = "/upload/avatar/glb/" + gen + random + ".glb";
-    const avatarHeadFile =
-      "/upload/avatar/head/" + gen + "Head" + random + ".png";
-    const avatarFullbodyFile =
-      "/upload/avatar/fullbody/" + gen + "Fullbody" + random + ".png";
+    let random = Math.floor(Math.random() * 10) + 1;
+    if (gen === "male") random = +10;
 
-    formData.set("file", avatarFile);
-    try {
-      const res = await makeRequest.post("/uploadAvatar", formData);
-      setInputs((prev) => ({
-        ...prev,
-        avatar: res.url,
-      }));
+    // const avatarFile = `/upload/avatar/glb/${gen}${random}.glb`;
+    // const avatarHeadFile = `/upload/avatar/head/${gen}Head${random}.png`;
+    // const avatarFullbodyFile = `/upload/avatar/fullbody/${gen}Fullbody${random}.png`;
 
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
+    // const avatarF = await fetchFile(avatarFile);
+    // const avatarHeadF = await fetchFile(avatarHeadFile);
+    // const avatarFullbodyF = await fetchFile(avatarFullbodyFile);
 
-    formData.set("file", avatarHeadFile);
-    try {
-      const res = await makeRequest.post("/uploadAvatar", formData);
-      setInputs((prev) => ({
-        ...prev,
-        avatarHead: res.url,
-      }));
+    // if (avatarF && avatarHeadF && avatarFullbodyF) {
+    //   const avatarUrl = await uploadFile(avatarF);
+    //   const avatarHeadUrl = await uploadFile(avatarHeadF);
+    //   const avatarFullbodyUrl = await uploadFile(avatarFullbodyF);
 
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
+    //   console.log(avatarUrl, avatarHeadUrl, avatarFullbodyUrl);
 
-    formData.set("file", avatarFullbodyFile);
-    try {
-      const res = await makeRequest.post("/uploadAvatar", formData);
-      setInputs((prev) => ({
-        ...prev,
-        avatarFullbody: res.url,
-      }));
+    const avatar = await getAvatar(random);
 
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
+    setInputs((prev) => ({
+      ...prev,
+      avatar: avatar.avatarglb,
+      avatarHead: avatar.avatarHead,
+      avatarFullbody: avatar.avatarFullbody,
+    }));
 
     try {
       await axios.post(

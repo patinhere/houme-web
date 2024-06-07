@@ -24,12 +24,17 @@ router.post("/", upload.single("file"), async (req, res) => {
   const file = req.file;
   // const userId = req.query.userId;
 
+  if (!file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
   try {
     const result = await cloudinary.uploader.upload(file.path, {
       folder: "houme",
     });
     res.status(200).json(result);
   } catch (error) {
+    console.error("Error during file upload:", error);
     res.status(500).json({ error: "Failed to upload file" });
   }
 });
