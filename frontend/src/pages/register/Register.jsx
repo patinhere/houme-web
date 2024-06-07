@@ -3,6 +3,7 @@ import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { makeRequest } from "../../axios";
+import { useEffect } from "react";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -17,7 +18,7 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
-
+  const [avatarData, setAvatarData] = useState(null);
   const [err, setErr] = useState(null);
 
   const handleChange = (e) => {
@@ -56,22 +57,12 @@ const Register = () => {
   //   }
   // };
 
-  const getAvatar = async (random) => {
-    try {
-      const res = await makeRequest.get("/getAvatar", +random);
-      return res.data;
-    } catch (err) {
-      console.error("Error uploading the file:", err);
-      return null;
-    }
-  };
-
   const handleClick = async (e) => {
     e.preventDefault();
 
     const gen = inputs.gender === "female" ? "female" : "male";
     let random = Math.floor(Math.random() * 10) + 1;
-    if (gen === "male") random = +10;
+    if (gen === "male") random += 10;
 
     // const avatarFile = `/upload/avatar/glb/${gen}${random}.glb`;
     // const avatarHeadFile = `/upload/avatar/head/${gen}Head${random}.png`;
@@ -88,26 +79,38 @@ const Register = () => {
 
     //   console.log(avatarUrl, avatarHeadUrl, avatarFullbodyUrl);
 
-    const avatar = await getAvatar(random);
-
-    setInputs((prev) => ({
-      ...prev,
-      avatar: avatar.avatarglb,
-      avatarHead: avatar.avatarHead,
-      avatarFullbody: avatar.avatarFullbody,
-    }));
-
     try {
-      await axios.post(
-        "https://houme-web.onrender.com/api/auth/register",
-        inputs
-      );
+      const res = await makeRequest.get("/getAvatar?id=" + random);
+      console.log(res);
+      const avatar = res.data[0];
 
-      navigate("/login");
+      setAvatarData({
+        avatar: avatar.avatarglb,
+        avatarHead: avatar.avatarHead,
+        avatarFullbody: avatar.avatarFullbody,
+      });
     } catch (err) {
-      setErr(err.response.data);
+      setErr(err.response ? err.response.data : "Error fetching avatar data");
     }
   };
+
+  useEffect(() => {
+    if (avatarData) {
+      const registerUser = async () => {
+        try {
+          await axios.post("https://houme-web.onrender.com/api/auth/register", {
+            ...inputs,
+            ...avatarData,
+          });
+
+          navigate("/login");
+        } catch (err) {
+          setErr(err.response.data);
+        }
+      };
+      registerUser();
+    }
+  }, [avatarData, inputs, navigate]);
 
   return (
     <div className="register">

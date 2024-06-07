@@ -74,17 +74,13 @@ export default function Profile() {
               {/* <img src={"/upload/" + data.coverPic} alt="" className="cover" /> */}
               <div className="cover">
                 <AvatarCanvas
-                  userId={userId}
+                  userId={currentUser.avatar}
                   animationIndex={animationIndex}
                   setAnimationIndex={setAnimationIndex}
                 />
               </div>
 
-              <img
-                src={"/upload/" + data.profilePic}
-                alt=""
-                className="profilePic"
-              />
+              <img src={currentUser.avatarHead} alt="" className="profilePic" />
             </div>
 
             <div className="profileContainer">

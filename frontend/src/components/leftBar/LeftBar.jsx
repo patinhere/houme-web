@@ -23,7 +23,7 @@ const LeftBar = () => {
               to={"/profile/" + currentUser.id}
               style={{ textDecoration: "none" }}
             >
-              <img src={"/upload/" + currentUser.profilePic} alt="" />
+              <img src={currentUser.avatarHead} alt="" />
             </Link>
             <Link
               to={"/profile/" + currentUser.id}

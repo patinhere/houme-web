@@ -8,12 +8,13 @@ import { AvatarAnimationContext } from "../../context/AvatarAnimationContext";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 
 const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
-  const avatarUser = useGLTF("/upload/avatar" + userId + ".glb");
+  //  const avatarUser = useGLTF("/upload/avatar" + userId + ".glb");
   const avatarModel = useGLTF("/upload/avatarModel" + ".glb");
+  const avatarUser = useGLTF(userId);
 
   const anim = avatarModel.scene;
   const animClone = SkeletonUtils.clone(anim);
-  avatarUser.scene = animClone;
+  //avatarUser.scene = animClone;
 
   const clock = new THREE.Clock();
   // const { actions, names } = useAnimations(

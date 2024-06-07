@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="user">
           <img
             onClick={() => setMenuOpen(!menuOpen)}
-            src={"/upload/" + currentUser.profilePic}
+            src={currentUser.avatarHead}
             alt=""
           />
           <span onClick={() => setMenuOpen(!menuOpen)}>{currentUser.name}</span>
