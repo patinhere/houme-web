@@ -3,12 +3,13 @@ import "./stories.scss";
 import { AuthContext } from "../../context/authContext";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { Link } from "react-router-dom";
 
-const Story = () => {
+const Story = ({ index }) => {
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["story"],
+    queryKey: ["story", index],
     queryFn: () =>
       makeRequest.get("/story").then((res) => {
         return res.data;
@@ -25,10 +26,10 @@ const Story = () => {
         <div>
           {data.map((avatar) => (
             <div className="story" key={avatar.id}>
-              <link to={"/profile/" + avatar.id}>
+              <Link to={"/profile/" + avatar.id}>
                 <img src={avatar.avatarFullbody} alt="" />
                 <span>{avatar.name}</span>
-              </link>
+              </Link>
             </div>
           ))}
         </div>

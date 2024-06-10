@@ -34,13 +34,13 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Hoûme</span>
         </Link>
-        <div className="search">
+        {/* <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />
-        </div>
+        </div> */}
       </div>
 
-      <div className="middle">
+      {/* <div className="middle">
         <Link to="/map" style={{ textDecoration: "none" }}>
           <PublicOutlinedIcon />
         </Link>
@@ -48,16 +48,14 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <DynamicFeedOutlinedIcon />
         </Link>
+      </div> */}
+
+      <div className="right">
         {darkMode ? (
           <LightModeOutlinedIcon onClick={toggle} />
         ) : (
           <NightlightOutlinedIcon onClick={toggle} />
         )}
-      </div>
-
-      <div className="right">
-        <SendOutlinedIcon />
-        <NotificationsNoneOutlinedIcon />
         <div className="user">
           <img
             onClick={() => setMenuOpen(!menuOpen)}

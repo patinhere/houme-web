@@ -8,24 +8,11 @@ import Story from "./Story.jsx";
 const Stories = () => {
   return (
     <div className="stories">
-      <div className="story">
-        <Story />
-      </div>
-      <div className="story">
-        <Story />
-      </div>
-      <div className="story">
-        <Story />
-      </div>
-      <div className="story">
-        <Story />
-      </div>
-      <div className="story">
-        <Story />
-      </div>
-      <div className="story">
-        <Story />
-      </div>
+      {[...Array(6)].map((_, index) => (
+        <div className="story" key={index}>
+          <Story index={index} />
+        </div>
+      ))}
     </div>
   );
 };

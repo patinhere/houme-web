@@ -3,8 +3,8 @@
 .stories {
   display: flex;
   gap: 10px;
-  height: 200px;
-  margin: 30px;
+  height: 300px;
+  margin-left: 20px;
 
   @include large() {
     height: 150px;
@@ -20,9 +20,11 @@
     position: relative;
 
     img {
-      width: 100%;
-      height: 100%;
+      height: 300px;
+      width: 100px;
       object-fit: cover;
+      margin-top: -20px;
+      margin-bottom: 10px;
 
       @include mobile() {
         border-radius: 50%;
@@ -31,19 +33,18 @@
     }
     span {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
+      bottom: 0px;
+      left: 20px;
       color: rgb(255, 255, 255);
       font-weight: 500;
-      text-shadow: 2px 1px #707070;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      @include themify($themes) {
+        color: themed("logo");
+      }
       @include mobile() {
         bottom: 0px;
-        @include themify($themes) {
-          color: themed("textColor");
-          text-shadow: none;
-          font-weight: 400;
-          font-size: 13px;
-        }
       }
     }
     button {

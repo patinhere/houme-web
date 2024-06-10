@@ -129,7 +129,7 @@ const RightBar = () => {
           </div>
         </div>
 
-        <div className="item">
+        {/* <div className="item">
           <span>Online Friends</span>
 
           <div className="user">
@@ -175,7 +175,7 @@ const RightBar = () => {
               <span>Martin</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
