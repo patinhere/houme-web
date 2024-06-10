@@ -2,16 +2,18 @@ import React from "react";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import "./rightBar.scss";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link } from "react-router-dom";
 
 const RightBar = () => {
   const { currentUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["suggestions"],
@@ -20,6 +22,20 @@ const RightBar = () => {
         return res.data;
       }),
   });
+
+  const followMutation = useMutation({
+    mutationFn: (userId) => {
+      return makeRequest.post("/relationships", { followedUserId: userId });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["relationship"]);
+      queryClient.invalidateQueries(["suggestions"]);
+    },
+  });
+
+  const handleFollow = (userId) => {
+    followMutation.mutate(userId);
+  };
 
   return (
     <div className="rightBar">
@@ -34,14 +50,20 @@ const RightBar = () => {
               "Loading.."
             ) : (
               <div>
-                <div className="userInfo">
+                <div>
                   {data.map((suggest) => (
-                    <div>
-                      <img src={suggest.avatarHead} alt="" />
-                      <span> {suggest.name} </span>
-
+                    <div className="userInfo" key={suggest.id}>
+                      <Link
+                        to={"/profile/" + suggest.id}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <img src={suggest.avatarHead} alt="" />
+                        <span> {suggest.name} </span>
+                      </Link>
                       <div className="button">
-                        <PersonAddAlt1OutlinedIcon />
+                        <PersonAddAlt1OutlinedIcon
+                          onClick={() => handleFollow(suggest.id)}
+                        />
                       </div>
                     </div>
                   ))}
