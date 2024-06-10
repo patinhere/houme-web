@@ -25,7 +25,6 @@ const Post = ({ post }) => {
         return res.data;
       }),
   });
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -66,7 +65,7 @@ const Post = ({ post }) => {
               to={`/profile/${post.userId}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <img src={"/upload/" + post.avatarHead} alt="" />{" "}
+              <img src={post.avatarHead} alt="" />
             </Link>
             <div className="details">
               <Link
