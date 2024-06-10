@@ -7,6 +7,7 @@ import postRoutes from "./routes/posts.js";
 import likeRoutes from "./routes/likes.js";
 import storyRoutes from "./routes/stories.js";
 import relationshipRoutes from "./routes/relationships.js";
+import suggestionRoutes from "./routes/suggestions.js";
 import uploadAvatar from "./routes/uploadAvatar.js";
 import getAvatar from "./routes/getAvatar.js";
 import cookieParser from "cookie-parser";
@@ -76,6 +77,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/relationships", relationshipRoutes);
 app.use("/api/uploadAvatar", uploadAvatar);
 app.use("/api/getAvatar", getAvatar);
+app.use("/api/suggestions", suggestionRoutes);
 
 // app.get("/profile", (req, res) => {
 //   const q = "SELECT * FROM profiles";
