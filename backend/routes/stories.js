@@ -1,8 +1,8 @@
 import express from "express";
-import {} from "../controllers/story.js";
+import { getStory } from "../controllers/story.js";
 
 const router = express.Router();
 
-router.get("");
+router.get("/", getStory);
 
 export default router;

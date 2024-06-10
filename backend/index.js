@@ -71,7 +71,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
-app.use("/api/stories", storyRoutes);
+app.use("/api/story", storyRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/relationships", relationshipRoutes);
 app.use("/api/uploadAvatar", uploadAvatar);
