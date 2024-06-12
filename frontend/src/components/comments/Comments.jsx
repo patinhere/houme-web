@@ -36,7 +36,7 @@ const Comments = ({ postId }) => {
 
     try {
       await makeRequest.post("/history", {
-        userId: data.userId,
+        user: data.postOf,
         log: "comment on post of ",
       });
     } catch (err) {
