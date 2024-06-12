@@ -1,5 +1,5 @@
 import express from "express";
-import { addHistory, getHistory } from "../controllers/history";
+import { addHistory, getHistory } from "../controllers/history.js";
 
 const router = express.Router();
 
