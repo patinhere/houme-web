@@ -33,8 +33,17 @@ const RightBar = () => {
     },
   });
 
-  const handleFollow = (userId) => {
+  const handleFollow = async (userId) => {
     followMutation.mutate(userId);
+
+    try {
+      await makeRequest.post("/history", {
+        userId: userId,
+        log: "follow",
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -34,6 +34,15 @@ const Comments = ({ postId }) => {
 
     mutation.mutate({ desc, postId });
 
+    try {
+      await makeRequest.post("/history", {
+        userId: data.userId,
+        log: "comment on post of ",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     setDesc("");
   };
 

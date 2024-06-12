@@ -40,6 +40,14 @@ const Share = () => {
     let imgUrl = "";
     if (file) imgUrl = await upload();
 
+    try {
+      await makeRequest.post("/history", {
+        log: "share a post",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     mutation.mutate({ desc: desc, pic: imgUrl });
 
     setDesc("");

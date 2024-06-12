@@ -6,11 +6,17 @@ import * as THREE from "three";
 import { useEffect, useState, useContext } from "react";
 import { AvatarAnimationContext } from "../../context/AvatarAnimationContext";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
+import { makeRequest } from "../../axios";
 
-const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
+const AvatarModel = ({
+  userId,
+  userAvatar,
+  animationIndex,
+  setAnimationIndex,
+}) => {
   //  const avatarUser = useGLTF("/upload/avatar" + userId + ".glb");
   const avatarModel = useGLTF("/upload/avatarModel" + ".glb");
-  const avatarUser = useGLTF(userId);
+  const avatarUser = useGLTF(userAvatar);
 
   const anim = avatarModel.scene;
   const animClone = SkeletonUtils.clone(anim);
@@ -51,6 +57,16 @@ const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
 
   useEffect(() => {
     if (animationIndex === 0) {
+      const logHistory = async () => {
+        try {
+          await makeRequest.post("/history", {
+            userId: userId,
+            log: "kick",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      };
       //Died
       actionDied.reset().fadeIn(0.5).play();
       actionDied.setLoop(THREE.LoopOnce, 1);
@@ -60,6 +76,16 @@ const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
       }, [13000]);
     } else if (animationIndex === 10) {
       //punch
+      const logHistory = async () => {
+        try {
+          await makeRequest.post("/history", {
+            userId: userId,
+            log: "punch",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      };
       actionPunch.reset().fadeIn(0.5).play();
       actionPunch.setLoop(THREE.LoopOnce, 1);
       actionPunch.clampWhenFinished = true;
@@ -90,7 +116,12 @@ const AvatarModel = ({ userId, animationIndex, setAnimationIndex }) => {
   );
 };
 
-const AvatarCanvas = ({ userId, animationIndex, setAnimationIndex }) => {
+const AvatarCanvas = ({
+  userId,
+  userAvatar,
+  animationIndex,
+  setAnimationIndex,
+}) => {
   return (
     <div className="avatar">
       <Canvas>
@@ -99,6 +130,7 @@ const AvatarCanvas = ({ userId, animationIndex, setAnimationIndex }) => {
         <OrbitControls />
         <AvatarModel
           userId={userId}
+          userAvatar={userAvatar}
           animationIndex={animationIndex}
           setAnimationIndex={setAnimationIndex}
         />

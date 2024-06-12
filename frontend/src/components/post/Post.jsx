@@ -28,14 +28,8 @@ const Post = ({ post }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (liked) => {
-      if (liked) {
-        await makeRequest.post("/history", {
-          userId: post.id,
-          log: "Like post of",
-        });
-        return makeRequest.delete("/likes?postId=" + post.id);
-      }
+    mutationFn: (liked) => {
+      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
       return makeRequest.post("/likes", { postId: post.id });
     },
 
@@ -54,7 +48,22 @@ const Post = ({ post }) => {
     },
   });
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    try {
+      if (data.includes(currentUser.id)) {
+        await makeRequest.post("/history", {
+          userId: post.userId,
+          log: "UnLike post of",
+        });
+      } else
+        await makeRequest.post("/history", {
+          userId: post.userId,
+          log: "Like post of",
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
     mutation.mutate(data.includes(currentUser.id));
   };
 

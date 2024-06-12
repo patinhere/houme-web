@@ -57,8 +57,17 @@ export default function Profile() {
     },
   });
 
-  const handleFollow = () => {
+  const handleFollow = async () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
+
+    try {
+      await makeRequest.post("/history", {
+        userId: userId,
+        log: "follow",
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -74,7 +83,8 @@ export default function Profile() {
               {/* <img src={"/upload/" + data.coverPic} alt="" className="cover" /> */}
               <div className="cover">
                 <AvatarCanvas
-                  userId={data.avatar}
+                  userId={data.id}
+                  userAvatar={data.avatar}
                   animationIndex={animationIndex}
                   setAnimationIndex={setAnimationIndex}
                 />

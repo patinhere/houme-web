@@ -13,8 +13,8 @@ export const getHistory = (req, res) => {
 
 export const addHistory = (req, res) => {
   const token = req.cookies.accessToken;
-  const passiveUserId = req.body.userId ? req.body.userId : NULL;
-  const log = req.body.log ? req.body.log : NULL;
+  const passiveUserId = req.body.userId ? req.body.userId : null;
+  const log = req.body.log ? req.body.log : "";
 
   if (!token) return res.status(401).json("Not Logged in!");
 
