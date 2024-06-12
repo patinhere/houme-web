@@ -26,14 +26,19 @@ export default function Profile() {
   // const { animationIndex, resetIndex } = useContext(AvatarAnimationContext);
 
   const userId = parseInt(useLocation().pathname.split("/")[2]);
+  const queryClient = useQueryClient();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: () =>
       makeRequest.get("/users/find/" + userId).then((res) => {
         return res.data;
       }),
   });
+
+  useEffect(() => {
+    refetch();
+  }, [userId]);
 
   const { isLoading: risLoading, data: relationshipData } = useQuery({
     queryKey: ["relationship"],
@@ -42,8 +47,6 @@ export default function Profile() {
         return res.data;
       }),
   });
-
-  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (isFriend) => {

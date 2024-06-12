@@ -34,7 +34,7 @@ const AvatarModel = ({
     actions.push(mixer.clipAction(clip));
   });
 
-  console.log(actions);
+  //console.log(actions);
   console.log(animationIndex);
   //actions[0].play();
 
@@ -42,31 +42,41 @@ const AvatarModel = ({
   const actionExcited = actions[1];
   const actionPunch = actions[10];
 
-  console.log(actionExcited);
+  //console.log(actionExcited);
+  //console.log(userId);
   //const actionDied = actions[names[0]];
   //const actionExcited = actions[names[1]];
   //const actionPunch = actions[names[10]];
 
-  function animate() {
-    requestAnimationFrame(animate);
-    const delta = clock.getDelta();
-    mixer.update(delta);
-  }
+  useEffect(() => {
+    let requestID;
 
-  animate();
+    const animate = () => {
+      const delta = clock.getDelta();
+      mixer.update(delta);
+      requestID = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(requestID);
+      mixer.stopAllAction();
+      mixer.uncacheRoot(avatarUser.scene);
+      avatarUser.scene.traverse((object) => {
+        if (object.isMesh) {
+          object.geometry.dispose();
+          if (object.material.isMaterial) {
+            object.material.dispose();
+          } else {
+            for (const material of object.material) material.dispose();
+          }
+        }
+      });
+    };
+  }, [mixer, avatarUser.scene]);
 
   useEffect(() => {
     if (animationIndex === 0) {
-      const logHistory = async () => {
-        try {
-          await makeRequest.post("/history", {
-            userId: userId,
-            log: "kick",
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      };
       //Died
       actionDied.reset().fadeIn(0.5).play();
       actionDied.setLoop(THREE.LoopOnce, 1);
@@ -76,16 +86,7 @@ const AvatarModel = ({
       }, [13000]);
     } else if (animationIndex === 10) {
       //punch
-      const logHistory = async () => {
-        try {
-          await makeRequest.post("/history", {
-            userId: userId,
-            log: "punch",
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      };
+
       actionPunch.reset().fadeIn(0.5).play();
       actionPunch.setLoop(THREE.LoopOnce, 1);
       actionPunch.clampWhenFinished = true;
@@ -102,7 +103,36 @@ const AvatarModel = ({
     return () => {
       actions[animationIndex].fadeOut();
     };
-  }, [animationIndex]);
+  }, [
+    animationIndex,
+    actions,
+    actionDied,
+    actionExcited,
+    actionPunch,
+    setAnimationIndex,
+    userId,
+  ]);
+
+  useEffect(() => {
+    const logHistory = async (log) => {
+      try {
+        await makeRequest.post("/history", {
+          userId: userId,
+          log: log,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (animationIndex === 10) {
+      const log = "kick";
+      logHistory(log);
+    } else if (animationIndex === 0) {
+      const log = "punch";
+      logHistory(log);
+    }
+  }, [animationIndex, userId]);
 
   return (
     <group>

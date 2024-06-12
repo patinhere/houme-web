@@ -29,20 +29,18 @@ const Comments = ({ postId }) => {
     },
   });
 
-  const handleClick = async (e) => {
+  const handleClick = async (e, postOf) => {
     e.preventDefault();
-
-    mutation.mutate({ desc, postId });
 
     try {
       await makeRequest.post("/history", {
-        user: data.postOf,
+        userId: postOf,
         log: "comment on post of ",
       });
     } catch (err) {
       console.log(err);
     }
-
+    mutation.mutate({ desc, postId });
     setDesc("");
   };
 
@@ -59,7 +57,7 @@ const Comments = ({ postId }) => {
         <div className="buttonComment">
           <SendOutlinedIcon
             style={{ fontSize: "large" }}
-            onClick={handleClick}
+            onClick={(e) => handleClick(e, data?.[0]?.postOf)}
           />
         </div>
       </div>

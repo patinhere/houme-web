@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./update.scss";
 import { makeRequest } from "../../axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -43,6 +43,16 @@ const Update = ({ setOpenUpdate, user }) => {
 
     coverUrl = coverPic ? await upload(coverPic) : user.coverPic;
     profileUrl = profilePic ? await upload(profilePic) : user.profilePic;
+
+    try {
+      if (texts || coverPic || profilePic) {
+        await makeRequest.post("/history", {
+          log: "update their profile",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     mutation.mutate({ ...texts, coverPic: coverUrl, profilePic: profileUrl });
 

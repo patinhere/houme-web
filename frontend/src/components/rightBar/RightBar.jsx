@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/authContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const RightBar = () => {
   const { currentUser } = useContext(AuthContext);
@@ -19,6 +20,18 @@ const RightBar = () => {
     queryKey: ["suggestions"],
     queryFn: () =>
       makeRequest.get("/suggestions").then((res) => {
+        return res.data;
+      }),
+  });
+
+  const {
+    isLoading: aIsLoading,
+    error: aError,
+    data: aData,
+  } = useQuery({
+    queryKey: ["history"],
+    queryFn: () =>
+      makeRequest.get("/history").then((res) => {
         return res.data;
       }),
   });
@@ -84,62 +97,32 @@ const RightBar = () => {
 
         <div className="item">
           <span>Latest Activities</span>
-
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
-                alt=""
-              />
-              <p>
-                <span>Patty</span>
-                <p>changed profile picture</p>
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
-                alt=""
-              />
-              <p>
-                <span>Patty</span>
-                <p>changed profile picture</p>
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
-                alt=""
-              />
-              <p>
-                <span>Patty</span>
-                <p>changed profile picture</p>
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
-                alt=""
-              />
-              <p>
-                <span>Patty</span>
-                <p>changed profile picture</p>
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
+          {aError ? (
+            "error"
+          ) : aIsLoading ? (
+            "Loading"
+          ) : (
+            <>
+              {aData.map((history) => (
+                <div className="user" key={history.id}>
+                  <div className="userInfo">
+                    <img
+                      src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
+                      alt=""
+                    />
+                    <p>
+                      <span>{history.activeUserId}</span>
+                      <p>{history.log}</p>
+                      {history.passiveUserId && (
+                        <span>{history.passiveUserId}</span>
+                      )}
+                    </p>
+                  </div>
+                  <span>{moment(history.time).fromNow()}</span>
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         {/* <div className="item">
