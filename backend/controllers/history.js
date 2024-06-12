@@ -12,7 +12,7 @@ LEFT JOIN (
     JOIN users AS u2 ON h2.passiveUserId = u2.id
 ) AS p ON h.passiveUserId = p.pId
 GROUP BY h.id
-HAVING COUNT(*) > 1
+HAVING COUNT(*) > 0 OR h.passiveUserId IS NULL
 ORDER BY h.time DESC
 LIMIT 10;`;
 
