@@ -13,8 +13,8 @@ export const getHistory = (req, res) => {
 
 export const addHistory = (req, res) => {
   const token = req.cookies.accessToken;
-  const passiveUser = req.query.userId;
-  const log = req.query.log;
+  const passiveUserId = req.body.userId ? req.body.userId : NULL;
+  const log = req.body.log ? req.body.log : NULL;
 
   if (!token) return res.status(401).json("Not Logged in!");
 
@@ -23,7 +23,7 @@ export const addHistory = (req, res) => {
 
     const q =
       "INSERT INTO history (`time`,`activeUserId`,`passiveUserId`,`log`) VALUES (?)";
-    const passiveUserId = passiveUser ? passiveUser : NULL;
+
     const values = [
       moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       userInfo.id,

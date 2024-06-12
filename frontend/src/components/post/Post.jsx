@@ -28,8 +28,14 @@ const Post = ({ post }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (liked) => {
-      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
+    mutationFn: async (liked) => {
+      if (liked) {
+        await makeRequest.post("/history", {
+          userId: post.id,
+          log: "Like post of",
+        });
+        return makeRequest.delete("/likes?postId=" + post.id);
+      }
       return makeRequest.post("/likes", { postId: post.id });
     },
 
