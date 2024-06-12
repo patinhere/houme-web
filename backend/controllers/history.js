@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 
 export const getHistory = (req, res) => {
-  const q = `SELECT TOP 10 * FROM history`;
+  const q = `SELECT * FROM history LIMIT 10`;
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
