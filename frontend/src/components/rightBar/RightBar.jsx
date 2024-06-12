@@ -106,15 +106,12 @@ const RightBar = () => {
               {aData.map((history) => (
                 <div className="user" key={history.id}>
                   <div className="userInfo">
-                    <img
-                      src="https://cdn.pixabay.com/photo/2017/03/19/03/40/avatar-2155431_960_720.png"
-                      alt=""
-                    />
+                    <img src={history.aHead} alt="" />
                     <p>
-                      <span>{history.activeUserId}</span>
+                      <span>{history.aName}</span>
                       <p>{history.log}</p>
                       {history.passiveUserId && (
-                        <span>{history.passiveUserId}</span>
+                        <span>{history.passiveName}</span>
                       )}
                     </p>
                   </div>

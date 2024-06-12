@@ -3,14 +3,16 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 
 export const getHistory = (req, res) => {
-  const q = `SELECT h.*, u.name AS aName, u.avatarHead AS aHead, p.pname AS passiveName
+  const q = `SELECT h.*, COUNT(*) AS count, u.name AS aName, u.avatarHead AS aHead, p.pName AS passiveName
 FROM history AS h
-JOIN users AS u ON h.activeUserId = u.id
+LEFT JOIN users AS u ON h.activeUserId = u.id
 LEFT JOIN (
     SELECT h2.passiveUserId AS pId, u2.name AS pName 
     FROM history AS h2
     JOIN users AS u2 ON h2.passiveUserId = u2.id
 ) AS p ON h.passiveUserId = p.pId
+GROUP BY h.id
+HAVING COUNT(*) > 1
 ORDER BY h.time DESC
 LIMIT 10;`;
 
