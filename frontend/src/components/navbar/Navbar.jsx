@@ -34,10 +34,10 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Hoûme</span>
         </Link>
-        {/* <div className="search">
+        <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />
-        </div> */}
+        </div>
       </div>
 
       {/* <div className="middle">
@@ -52,17 +52,20 @@ const Navbar = () => {
 
       <div className="right">
         {darkMode ? (
-          <LightModeOutlinedIcon onClick={toggle} />
+          <LightModeOutlinedIcon className="darkMode" onClick={toggle} />
         ) : (
-          <NightlightOutlinedIcon onClick={toggle} />
+          <NightlightOutlinedIcon className="darkMode" onClick={toggle} />
         )}
         <div className="user">
           <img
+            className="button"
             onClick={() => setMenuOpen(!menuOpen)}
             src={currentUser.avatarHead}
             alt=""
           />
-          <span onClick={() => setMenuOpen(!menuOpen)}>{currentUser.name}</span>
+          <span className="button" onClick={() => setMenuOpen(!menuOpen)}>
+            {currentUser.name}
+          </span>
         </div>
       </div>
       {menuOpen && (

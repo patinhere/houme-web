@@ -31,7 +31,8 @@ function App() {
           <Navbar />
           <div style={{ display: "flex" }}>
             <LeftBar />
-            <div style={{ flex: 4 }}>
+            {/*  */}
+            <div className="outlet" style={{ flex: 4 }}>
               <Outlet />
             </div>
             <RightBar />

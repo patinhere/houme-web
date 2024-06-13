@@ -42,13 +42,24 @@ $themes: (
 }
 
 @mixin mobile {
-  @media (max-width: 768px) {
+  @media (max-width: 560px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 856px) and (min-width: 561px) {
     @content;
   }
 }
 
 @mixin large {
-  @media (max-width: 1024px) {
+  @media (max-width: 1155px) and (min-width: 857px) {
+    @content;
+  }
+}
+@mixin xlarge {
+  @media (max-width: 2025px) and (min-width: 1156px) {
     @content;
   }
 }

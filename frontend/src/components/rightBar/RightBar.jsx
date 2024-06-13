@@ -80,7 +80,7 @@ const RightBar = () => {
                         style={{ textDecoration: "none" }}
                       >
                         <img src={suggest.avatarHead} alt="" />
-                        <span> {suggest.name} </span>
+                        <span className="userSuggest"> {suggest.name} </span>
                       </Link>
                       <div className="button">
                         <PersonAddAlt1OutlinedIcon
@@ -106,12 +106,29 @@ const RightBar = () => {
               {aData.map((history) => (
                 <div className="user" key={history.id}>
                   <div className="userInfo">
-                    <img src={history.aHead} alt="" />
+                    <Link
+                      to={"/profile/" + history.activeUserId}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img src={history.aHead} alt="" />
+                    </Link>
                     <p>
-                      <span>{history.aName}</span>
-                      <p>{history.log}</p>
+                      <Link
+                        to={"/profile/" + history.activeUserId}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <span className="firstUser">{history.aName}</span>
+                      </Link>
+                      <p className="log">{history.log}</p>
                       {history.passiveUserId && (
-                        <span>{history.passiveName}</span>
+                        <Link
+                          to={"/profile/" + history.passiveUserId}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <span className="secondUser">
+                            {history.passiveName}
+                          </span>
+                        </Link>
                       )}
                     </p>
                   </div>

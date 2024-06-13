@@ -6,6 +6,7 @@
   height: calc(100vh - 70px);
   overflow: scroll;
   min-height: 100vh;
+  box-sizing: border-box;
 
   &::-webkit-scrollbar {
     display: none;

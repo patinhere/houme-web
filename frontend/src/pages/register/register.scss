@@ -1,15 +1,50 @@
+@import "../../style.scss";
+
 .register {
   height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   align-items: center;
   justify-content: center;
+  @include mobile() {
+    width: 100%;
+    height: auto;
+  }
+  @include tablet() {
+    width: 100%;
+    height: auto;
+  }
+  @include large() {
+    width: 100%;
+    height: auto;
+  }
 
   .card {
     display: flex;
     width: 70%;
     min-height: 600px;
     flex-direction: row-reverse;
+    @include mobile() {
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      height: auto;
+      min-height: none;
+    }
+    @include tablet() {
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      height: auto;
+      min-height: none;
+    }
+    @include large() {
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      height: auto;
+      min-height: none;
+    }
 
     .left {
       flex: 2;
@@ -27,17 +62,84 @@
       gap: 50px;
       align-items: center;
       justify-content: start;
+
+      @include mobile() {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border-radius: 0%;
+        gap: 20px;
+        border-top-left-radius: 15%;
+      }
+      @include tablet() {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border-radius: 0%;
+        gap: 20px;
+        border-top-left-radius: 15%;
+      }
+      @include large() {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border-radius: 0%;
+        gap: 20px;
+        border-top-left-radius: 15%;
+      }
       h1 {
         font-size: 80px;
         line-height: 3px;
         color: white;
+        @include mobile() {
+          font-size: 40px;
+          margin: 0;
+          margin-top: 60px;
+          padding: 0;
+          margin-bottom: 40px;
+        }
+        @include tablet() {
+          font-size: 40px;
+          margin: 0;
+          margin-top: 60px;
+          padding: 0;
+          margin-bottom: 40px;
+        }
+        @include large() {
+          font-size: 40px;
+          margin: 0;
+          margin-top: 60px;
+          padding: 0;
+          margin-bottom: 40px;
+        }
       }
       p {
         color: white;
+        @include mobile() {
+          font-size: 12px;
+          margin: 0 30px;
+        }
+        @include tablet() {
+          font-size: 16px;
+          margin: 0 50px;
+        }
+        @include large() {
+          font-size: 16px;
+          margin: 0 50px;
+        }
       }
       span {
         font-size: 14px;
         color: rgb(255, 255, 255);
+        @include tablet() {
+          font-size: 18px;
+        }
+        @include large() {
+          font-size: 18px;
+        }
       }
       button {
         width: 150%;
@@ -49,6 +151,24 @@
         cursor: pointer;
         font-size: 16px;
         color: #241b00;
+        @include mobile() {
+          font-size: 13px;
+          padding: 10px 15px;
+          margin: 20px 10px;
+          width: 100px;
+        }
+        @include tablet() {
+          font-size: 15px;
+          padding: 10px 15px;
+          margin: 20px 10px;
+          width: 150px;
+        }
+        @include large() {
+          font-size: 15px;
+          padding: 10px 25px;
+          margin: 20px 30px;
+          width: 200px;
+        }
       }
     }
     .right {
@@ -64,6 +184,30 @@
         color: rgb(0, 0, 0);
         font-size: 50px;
         line-height: 50px;
+        @include mobile() {
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          padding: 0;
+        }
+        @include tablet() {
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          padding: 0;
+        }
+        @include large() {
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          padding: 0;
+        }
       }
       form {
         display: flex;
@@ -84,6 +228,16 @@
           font-weight: bold;
           cursor: pointer;
           margin-inline-start: 25%;
+          @include tablet() {
+            font-size: 16px;
+            width: 200px;
+            margin: auto;
+          }
+          @include large() {
+            font-size: 18px;
+            width: 250px;
+            margin: auto;
+          }
         }
       }
     }

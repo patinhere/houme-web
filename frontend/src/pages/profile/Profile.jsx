@@ -102,24 +102,39 @@ export default function Profile() {
                   <span>{data.name}</span>
                 </div>
                 <div className="left">
-                  <DirectionsRunIcon onClick={() => setAnimationIndex(10)} />
-                  <SportsMmaIcon onClick={() => setAnimationIndex(0)} />
+                  <DirectionsRunIcon
+                    className="actionButton"
+                    onClick={() => setAnimationIndex(10)}
+                  />
+                  <SportsMmaIcon
+                    className="actionButton"
+                    onClick={() => setAnimationIndex(0)}
+                  />
                 </div>
 
                 <div className="right">
                   {risLoading ? (
                     "Loading"
                   ) : userId === currentUser.id ? (
-                    <EditOutlinedIcon onClick={() => setOpenUpdate(true)} />
+                    <EditOutlinedIcon
+                      className="actionButton"
+                      onClick={() => setOpenUpdate(true)}
+                    />
                   ) : (
                     <>
                       {relationshipData.includes(currentUser.id) ? (
-                        <PersonRemoveIcon onClick={handleFollow} />
+                        <PersonRemoveIcon
+                          className="actionButton"
+                          onClick={handleFollow}
+                        />
                       ) : (
-                        <PersonAddAlt1OutlinedIcon onClick={handleFollow} />
+                        <PersonAddAlt1OutlinedIcon
+                          className="actionButton"
+                          onClick={handleFollow}
+                        />
                       )}
 
-                      <MessageOutlinedIcon />
+                      <MessageOutlinedIcon className="actionButton" />
                     </>
                   )}
                 </div>

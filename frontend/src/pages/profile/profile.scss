@@ -4,30 +4,109 @@
   @include themify($themes) {
     background-color: themed("bgSoft");
   }
+  @include mobile() {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  @include large() {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
 
   .container {
     width: 100%;
     .images {
-      width: 500px;
-      height: 600px;
+      width: 100%;
+      height: auto;
       position: relative;
       display: flex;
 
+      @include mobile() {
+        height: auto;
+        width: 100%;
+        margin: auto;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      @include tablet() {
+        height: auto;
+        width: 100%;
+        margin: auto;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      @include large() {
+        height: auto;
+        width: 100%;
+        margin: auto;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      @include xlarge() {
+        height: auto;
+        width: 100%;
+        margin: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
       .cover {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
+        @include xlarge() {
+          width: 60%;
+          height: auto;
+          margin-top: 50px;
+        }
       }
       .profilePic {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
+        width: 300px;
+        height: 300px;
         object-fit: cover;
         position: absolute;
-        top: 30px;
-        left: 600px;
+        border-radius: 10px;
+        top: -10px;
         right: 0px;
         margin: auto;
+
+        @include mobile() {
+          width: 200px;
+          height: 200px;
+          position: static;
+          left: 0px;
+          top: 10px;
+          margin-top: 0px;
+        }
+        @include tablet() {
+          width: 200px;
+          height: 200px;
+          position: static;
+          left: 0px;
+          top: 10px;
+          margin-top: 0px;
+        }
+        @include large() {
+          width: 300px;
+          height: 300px;
+          position: static;
+          left: 0px;
+          top: 10px;
+          margin-top: 0px;
+        }
+        @include xlarge() {
+          position: absolute;
+          top: -10px;
+          right: 15%;
+        }
       }
     }
     .profileContainer {
@@ -38,9 +117,46 @@
       right: 390px;
       top: 300px;
 
+      @include mobile() {
+        position: static;
+        height: auto;
+        display: flex;
+        margin-top: 0px;
+        margin-left: 0px;
+        margin: auto;
+        width: 80%;
+        display: flex;
+        padding: 0px 0px;
+        box-sizing: border-box;
+      }
+      @include tablet() {
+        position: static;
+        height: auto;
+        display: flex;
+        margin-top: 0px;
+        margin-left: 0px;
+        margin: auto;
+        width: 80%;
+        display: flex;
+        padding: 0px 0px;
+        box-sizing: border-box;
+      }
       @include large() {
-        width: 90%;
-        padding: 30px 30px;
+        position: static;
+        height: auto;
+        display: flex;
+        margin-top: 0px;
+        margin-left: 0px;
+        margin: auto;
+        width: 80%;
+        display: flex;
+        padding: 0px 0px;
+        box-sizing: border-box;
+      }
+      @include xlarge() {
+        position: absolute;
+        right: 33%;
+        top: 300px;
       }
 
       .userInfo {
@@ -48,8 +164,9 @@
         -webkit-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
         -moz-box-shadow: 0px 0px 4px 0px rgba(167, 167, 167, 0.75);
         height: 200px;
-        width: 250px;
+        width: 100%;
         border-radius: 20px;
+        border-top: none;
         padding: 50px;
         gap: 20px;
 
@@ -65,7 +182,23 @@
 
         @include mobile() {
           flex-direction: column;
-          margin-top: 50px;
+          margin-top: 0px;
+          padding: 10px;
+          margin: 0px;
+        }
+        @include tablet() {
+          flex-direction: column;
+          margin-top: 0px;
+          padding: 10px;
+          margin: 0px auto;
+          margin-left: 20px;
+        }
+        @include large() {
+          flex-direction: column;
+          margin-top: 0px;
+          padding: 10px;
+          margin: 0px auto;
+          margin-left: 20px;
         }
 
         .left {
@@ -86,6 +219,12 @@
           @include mobile() {
             align-self: center;
           }
+          @include tablet() {
+            align-self: center;
+          }
+          @include large() {
+            align-self: center;
+          }
         }
         .right {
           display: flex;
@@ -95,6 +234,18 @@
           position: absolute;
           right: 90px;
           top: 40px;
+          @include mobile() {
+            position: static;
+          }
+          @include tablet() {
+            position: static;
+          }
+          @include large() {
+            position: static;
+          }
+        }
+        .actionButton {
+          cursor: pointer;
         }
       }
     }

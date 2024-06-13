@@ -10,6 +10,12 @@
   @include mobile() {
     display: none;
   }
+  @include tablet() {
+    display: none;
+  }
+  @include large() {
+    width: 100%;
+  }
 
   @include themify($themes) {
     background-color: themed("bg");
@@ -74,7 +80,7 @@
           font-size: 14px;
           color: black;
           @include themify($themes) {
-            color: themed("textColor");
+            color: themed("border");
           }
         }
       }

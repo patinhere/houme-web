@@ -6,10 +6,47 @@
   flex-direction: column;
 
   @include mobile() {
-    padding: 5px;
+    width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    gap: 20px;
+    margin-top: 20px;
   }
-
+  @include tablet() {
+    width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    gap: 20px;
+    margin-top: 20px;
+  }
   @include large() {
-    padding: 20px;
+    width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  @include xlarge() {
+    width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    gap: 20px;
+    margin-top: 20px;
   }
 }
