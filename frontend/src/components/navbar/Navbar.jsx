@@ -8,7 +8,10 @@ import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
+import RoofingIcon from "@mui/icons-material/Roofing";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
+import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
@@ -37,10 +40,10 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="leftSideBarButton">
-        <ViewSidebarOutlinedIcon onClick={toggleL} />
-      </div>
       <div className="left">
+        <div className="leftSideBarButton">
+          <HomeIcon onClick={toggleL} />
+        </div>
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Hoûme</span>
         </Link>
@@ -80,7 +83,7 @@ const Navbar = () => {
       </div>
 
       <div className="rightSideBarButton">
-        <ViewSidebarOutlinedIcon onClick={toggleR} />
+        <ArrowForwardIosIcon onClick={toggleR} />
       </div>
 
       {menuOpen && (
