@@ -39,10 +39,10 @@
     gap: 20px;
     margin-right: 50px;
     @include mobile() {
-      margin: 10px 50px;
+      margin: 10px 10px;
     }
     @include tablet() {
-      margin: 0px 50px;
+      margin: 0px 10px;
     }
     @include large() {
       margin: 0px 10px;
@@ -105,14 +105,14 @@
     height: auto;
     justify-content: space-around;
     @include mobile() {
-      margin: 10px 50px;
+      margin: 10px 10px;
     }
     @include tablet() {
-      margin: 10px 50px;
+      margin: 10px 10px;
     }
     @include large() {
       justify-content: space-between;
-      margin-right: 50px;
+      margin-right: 10px;
     }
     @include xlarge() {
       justify-content: space-between;
@@ -159,27 +159,33 @@
     }
   }
   .rightSideBarButton {
-    position: absolute;
-    right: 10px;
-    top: 10px;
+    // position: absolute;
+    // right: 10px;
+    // top: 15px;
     cursor: pointer;
+    @include mobile() {
+      margin: 10px 10px;
+    }
     @include tablet() {
-      top: 18px;
+      margin: 10px 10px;
     }
     @include large() {
-      top: 18px;
+      margin: 10px 10px;
     }
     @include xlarge() {
       display: none;
     }
   }
   .leftSideBarButton {
-    position: absolute;
-    left: 10px;
-    top: 10px;
+    // position: absolute;
+    // left: 10px;
+    // top: 15px;
     cursor: pointer;
+    @include mobile() {
+      margin: 10px 10px;
+    }
     @include tablet() {
-      top: 18px;
+      margin: 10px 10px;
     }
     @include large() {
       display: none;

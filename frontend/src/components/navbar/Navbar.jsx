@@ -37,6 +37,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
+      <div className="leftSideBarButton">
+        <ViewSidebarOutlinedIcon onClick={toggleL} />
+      </div>
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Hoûme</span>
@@ -75,9 +78,7 @@ const Navbar = () => {
           </span>
         </div>
       </div>
-      <div className="leftSideBarButton">
-        <ViewSidebarOutlinedIcon onClick={toggleL} />
-      </div>
+
       <div className="rightSideBarButton">
         <ViewSidebarOutlinedIcon onClick={toggleR} />
       </div>
