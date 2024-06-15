@@ -117,7 +117,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.desc}</p>
-          <img src={"./upload/" + post.pic} alt="" />
+          {post.pic && <img src={"./upload/" + post.pic} alt="" />}
         </div>
         <div className="info">
           <div className="item">
