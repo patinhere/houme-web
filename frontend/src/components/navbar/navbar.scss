@@ -104,8 +104,11 @@
     width: 100%;
     height: auto;
     justify-content: space-around;
+    @include mobile() {
+      margin: 10px 50px;
+    }
     @include tablet() {
-      margin-right: 50px;
+      margin: 10px 50px;
     }
     @include large() {
       justify-content: space-between;
