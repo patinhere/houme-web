@@ -8,16 +8,56 @@
   height: calc(100vh - 70px);
   overflow: scroll;
   width: auto;
-  @include mobile() {
-    display: none;
+  z-index: 1000;
+
+  &.open {
+    @include mobile() {
+      position: fixed;
+      top: 42px;
+      right: 0px;
+      width: 350px;
+      height: 100%;
+      border: 1px solid lightgrey;
+    }
+    @include tablet() {
+      position: fixed;
+      top: 57px;
+      right: 0px;
+      width: 350px;
+      height: 100%;
+      border: 1px solid lightgrey;
+      height: 100%;
+    }
+    @include large() {
+      position: fixed;
+      top: 57px;
+      right: 0px;
+      width: 350px;
+      height: 100%;
+      border: 1px solid lightgrey;
+      height: 100%;
+    }
+    @include xlarge() {
+      width: 100%;
+      min-width: 350px;
+    }
   }
 
-  @include tablet() {
-    display: none;
-  }
-
-  @include large() {
-    display: none;
+  &.closed {
+    @include mobile() {
+      display: none;
+    }
+    @include tablet() {
+      display: none;
+    }
+    @include large() {
+      width: 100%;
+      min-width: 200px;
+    }
+    @include xlarge() {
+      width: 100%;
+      min-width: 200px;
+    }
   }
 
   @include themify($themes) {

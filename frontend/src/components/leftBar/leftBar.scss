@@ -6,15 +6,48 @@
   top: 57px;
   height: calc(100vh - 70px);
   overflow: scroll;
+  z-index: 1000;
 
-  @include mobile() {
-    display: none;
+  &.open {
+    @include mobile() {
+      position: fixed;
+      top: 45px;
+      left: 0px;
+      width: 200px;
+      height: 100%;
+    }
+    @include tablet() {
+      position: fixed;
+      top: 60px;
+      left: 0px;
+      width: 200px;
+      height: 100%;
+    }
+    @include large() {
+      width: 100%;
+      min-width: 200px;
+    }
+    @include xlarge() {
+      width: 100%;
+      min-width: 200px;
+    }
   }
-  @include tablet() {
-    display: none;
-  }
-  @include large() {
-    width: 100%;
+
+  &.closed {
+    @include mobile() {
+      display: none;
+    }
+    @include tablet() {
+      display: none;
+    }
+    @include large() {
+      width: 100%;
+      min-width: 200px;
+    }
+    @include xlarge() {
+      width: 100%;
+      min-width: 200px;
+    }
   }
 
   @include themify($themes) {

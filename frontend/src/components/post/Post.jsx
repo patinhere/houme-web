@@ -7,7 +7,7 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Comments from "../comments/Comments";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -22,6 +22,18 @@ const Post = ({ post }) => {
     queryKey: ["likes", post.id],
     queryFn: () =>
       makeRequest.get("/likes?postId=" + post.id).then((res) => {
+        return res.data;
+      }),
+  });
+
+  const {
+    isLoading: isLoadingC,
+    error: errorC,
+    data: dataC,
+  } = useQuery({
+    queryKey: ["comments", post.id],
+    queryFn: () =>
+      makeRequest.get("/comments?postId=" + post.id).then((res) => {
         return res.data;
       }),
   });
@@ -122,14 +134,17 @@ const Post = ({ post }) => {
             {isLoading ? "loading" : `${data.length}`} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
-            <ChatBubbleOutlineOutlinedIcon />5 Comments
+            <ChatBubbleOutlineOutlinedIcon />
+            {isLoadingC ? "loading" : `${dataC.length}`} Comments
           </div>
           <div className="item">
             <ShareOutlinedIcon />
             Share
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} />}
+        <div className="comment">
+          {commentOpen && <Comments postId={post.id} />}
+        </div>
       </div>
     </div>
   );

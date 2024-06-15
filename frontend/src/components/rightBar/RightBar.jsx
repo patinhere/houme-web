@@ -11,10 +11,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { RightBarContext } from "../../context/rightBarContext";
 
 const RightBar = () => {
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const { rightBarOpen } = useContext(RightBarContext);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["suggestions"],
@@ -60,7 +62,7 @@ const RightBar = () => {
   };
 
   return (
-    <div className="rightBar">
+    <div className={`rightBar ${rightBarOpen ? "open" : "closed"}`}>
       <div className="container">
         <div className="item">
           <span>Suggestions for you</span>

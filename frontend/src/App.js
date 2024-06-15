@@ -18,6 +18,14 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  RightBarContext,
+  RightBarContextProvider,
+} from "./context/rightBarContext";
+import {
+  LeftBarContext,
+  LeftBarContextProvider,
+} from "./context/leftBarContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -31,7 +39,6 @@ function App() {
           <Navbar />
           <div style={{ display: "flex" }}>
             <LeftBar />
-            {/*  */}
             <div className="outlet" style={{ flex: 4 }}>
               <Outlet />
             </div>
@@ -84,9 +91,13 @@ function App() {
   ]);
 
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <RightBarContextProvider>
+      <LeftBarContextProvider>
+        <div className="App">
+          <RouterProvider router={router} />
+        </div>
+      </LeftBarContextProvider>
+    </RightBarContextProvider>
   );
 }
 

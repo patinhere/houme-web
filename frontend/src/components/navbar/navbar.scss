@@ -39,10 +39,10 @@
     gap: 20px;
     margin-right: 50px;
     @include mobile() {
-      margin: 10px 10px;
+      margin: 10px 50px;
     }
     @include tablet() {
-      margin: 0px 10px;
+      margin: 0px 50px;
     }
     @include large() {
       margin: 0px 10px;
@@ -104,9 +104,12 @@
     width: 100%;
     height: auto;
     justify-content: space-around;
+    @include tablet() {
+      margin-right: 50px;
+    }
     @include large() {
       justify-content: space-between;
-      margin-right: 20px;
+      margin-right: 50px;
     }
     @include xlarge() {
       justify-content: space-between;
@@ -150,6 +153,50 @@
     }
     @include mobile() {
       top: 40px;
+    }
+  }
+  .rightSideBarButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    @include tablet() {
+      top: 18px;
+    }
+    @include large() {
+      top: 18px;
+    }
+    @include xlarge() {
+      display: none;
+    }
+  }
+  .leftSideBarButton {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+    @include tablet() {
+      top: 18px;
+    }
+    @include large() {
+      display: none;
+    }
+    @include xlarge() {
+      display: none;
+    }
+  }
+  .leftSideBar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    height: 100%;
+    border: 1px solid black;
+    @include large() {
+      display: none;
+    }
+    @include xlarge() {
+      display: none;
     }
   }
   .darkMode {

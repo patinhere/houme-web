@@ -11,11 +11,14 @@ import { useContext } from "react";
 
 import "./leftBar.scss";
 import { AuthContext } from "../../context/authContext";
+import { LeftBarContext } from "../../context/leftBarContext";
 
 const LeftBar = () => {
   const { currentUser } = useContext(AuthContext);
+  const { leftBarOpen } = useContext(LeftBarContext);
+
   return (
-    <div className="leftBar">
+    <div className={`leftBar ${leftBarOpen ? "open" : "closed"}`}>
       <div className="container">
         <div className="menu">
           <div className="user">

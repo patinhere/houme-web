@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import DynamicFeedOutlinedIcon from "@mui/icons-material/DynamicFeedOutlined";
@@ -7,17 +7,24 @@ import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlin
 import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
+import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import { makeRequest } from "../../axios";
+import LeftBar from "../leftBar/LeftBar";
+import { LeftBarContext } from "../../context/leftBarContext";
+import { RightBarContext } from "../../context/rightBarContext";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { toggleL, leftBarOpen } = useContext(LeftBarContext);
+  const { toggleR, rightBarOpen } = useContext(RightBarContext);
 
   const navigate = useNavigate();
 
@@ -68,6 +75,13 @@ const Navbar = () => {
           </span>
         </div>
       </div>
+      <div className="leftSideBarButton">
+        <ViewSidebarOutlinedIcon onClick={toggleL} />
+      </div>
+      <div className="rightSideBarButton">
+        <ViewSidebarOutlinedIcon onClick={toggleR} />
+      </div>
+
       {menuOpen && (
         <button className="logout" onClick={handleLogout}>
           <LogoutIcon />
