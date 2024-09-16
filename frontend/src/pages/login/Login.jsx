@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
@@ -10,7 +10,8 @@ const Login = () => {
   });
 
   const [err, setErr] = useState(null);
-
+  const [isLoad, setIsLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -24,14 +25,23 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       await login(inputs);
-      navigate("/");
+      setIsLoad(true);
+      // navigate("/");
     } catch (err) {
       setErr(err.response.data);
     }
   };
+
+  useEffect(() => {
+    if (isLoad) {
+      navigate("/");
+      setIsLoad(false);
+      setIsLoading(false);
+    }
+  }, [isLoad, navigate]);
 
   return (
     <div className="login">
@@ -65,7 +75,9 @@ const Login = () => {
               onChange={handleChange}
             />
             {err && err}
-            <button onClick={handleLogin}>Log In</button>
+            <button onClick={handleLogin} disabled={isLoading ? true : false}>
+              {isLoading ? "Loading..." : "Log In"}
+            </button>
           </form>
         </div>
       </div>

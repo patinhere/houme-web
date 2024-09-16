@@ -2,7 +2,7 @@ import "./posts.scss";
 import Post from "../post/Post";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Posts = ({ userId }) => {
   const { isLoading, error, data } = useQuery({

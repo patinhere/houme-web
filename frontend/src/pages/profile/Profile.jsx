@@ -1,29 +1,26 @@
 import "./profile.scss";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
+import { Navigate, useLocation } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DoorFrontOutlinedIcon from "@mui/icons-material/DoorFrontOutlined";
-import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
 import SportsMmaIcon from "@mui/icons-material/SportsMma";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+
+import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import Posts from "../../components/posts/Posts";
-import { Navigate, useLocation } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
 import Update from "../../components/update/Update";
 import AvatarCanvas from "../../components/avatar/AvatarCanvas";
-import { AvatarAnimationContext } from "../../context/AvatarAnimationContext";
 
 export default function Profile() {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [animationIndex, setAnimationIndex] = useState(1);
   const { currentUser } = useContext(AuthContext);
-  // const { animationIndex, resetIndex } = useContext(AvatarAnimationContext);
 
   const userId = parseInt(useLocation().pathname.split("/")[2]);
   const queryClient = useQueryClient();
@@ -38,7 +35,7 @@ export default function Profile() {
 
   useEffect(() => {
     refetch();
-  }, [userId]);
+  }, [userId, refetch]);
 
   const { isLoading: risLoading, data: relationshipData } = useQuery({
     queryKey: ["relationship"],

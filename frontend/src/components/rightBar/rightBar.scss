@@ -13,14 +13,14 @@
   &.open {
     @include mobile() {
       position: fixed;
-      top: 55px;
+      top: 75px !important;
       right: 0px;
       width: 380px;
       height: 100%;
     }
     @include tablet() {
       position: fixed;
-      top: 57px;
+      top: 75px !important;
       right: 0px;
       width: 380px;
       height: 100%;

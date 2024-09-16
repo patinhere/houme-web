@@ -1,9 +1,5 @@
 import { Avatar } from "@readyplayerme/visage";
-import {
-  AvatarCreator,
-  AvatarCreatorConfig,
-  AvatarExportedEvent,
-} from "@readyplayerme/react-avatar-creator";
+import { AvatarCreator } from "@readyplayerme/react-avatar-creator";
 
 const config = {
   clearCache: true,

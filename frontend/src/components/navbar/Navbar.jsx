@@ -1,48 +1,48 @@
 import React, { useContext, useEffect, useState } from "react";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import DynamicFeedOutlinedIcon from "@mui/icons-material/DynamicFeedOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
-import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
-import RoofingIcon from "@mui/icons-material/Roofing";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
-import HomeIcon from "@mui/icons-material/Home";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
+
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import { makeRequest } from "../../axios";
-import LeftBar from "../leftBar/LeftBar";
 import { LeftBarContext } from "../../context/leftBarContext";
 import { RightBarContext } from "../../context/rightBarContext";
 
 const Navbar = () => {
+  const { toggleL } = useContext(LeftBarContext);
+  const { toggleR } = useContext(RightBarContext);
   const { toggle, darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { toggleL, leftBarOpen } = useContext(LeftBarContext);
-  const { toggleR, rightBarOpen } = useContext(RightBarContext);
 
+  const [islogout, setIsLogout] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    console.log("work");
     localStorage.removeItem("user");
     await makeRequest.post("/auth/logout");
+    setIsLogout(true);
   };
+
+  useEffect(() => {
+    if (islogout) {
+      setIsLogout(false);
+      navigate("/login");
+    }
+  }, [islogout, navigate]);
 
   return (
     <div className="navbar">
       <div className="left">
         <div className="leftSideBarButton">
-          <HomeIcon onClick={toggleL} />
+          <ArrowBackIosIcon onClick={toggleL} />
         </div>
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Hoûme</span>
@@ -53,16 +53,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* <div className="middle">
-        <Link to="/map" style={{ textDecoration: "none" }}>
-          <PublicOutlinedIcon />
-        </Link>
-        <HolidayVillageOutlinedIcon />
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <DynamicFeedOutlinedIcon />
-        </Link>
-      </div> */}
-
       <div className="right">
         {darkMode ? (
           <LightModeOutlinedIcon className="darkMode" onClick={toggle} />
@@ -70,30 +60,24 @@ const Navbar = () => {
           <NightlightOutlinedIcon className="darkMode" onClick={toggle} />
         )}
         <div className="user">
-          <img
-            className="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            src={currentUser.avatarHead}
-            alt=""
-          />
-          <span className="button" onClick={() => setMenuOpen(!menuOpen)}>
-            {currentUser.name}
-          </span>
+          <Link
+            to={"/profile/" + currentUser.id}
+            style={{ textDecoration: "none" }}
+          >
+            <img className="button" src={currentUser.avatarHead} alt="" />
+          </Link>
+          <button className="logout" onClick={handleLogout}>
+            <LogoutIcon />
+            <Link to={"/login"} style={{ textDecoration: "none" }}>
+              Log Out
+            </Link>
+          </button>
         </div>
       </div>
 
       <div className="rightSideBarButton">
         <ArrowForwardIosIcon onClick={toggleR} />
       </div>
-
-      {menuOpen && (
-        <button className="logout" onClick={handleLogout}>
-          <LogoutIcon />
-          <Link to={"/login"} style={{ textDecoration: "none" }}>
-            Log Out
-          </Link>
-        </button>
-      )}
     </div>
   );
 };

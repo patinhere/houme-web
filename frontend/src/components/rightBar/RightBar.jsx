@@ -1,20 +1,15 @@
 import React from "react";
-import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
-import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
+import moment from "moment";
 import "./rightBar.scss";
 import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
 import { Link } from "react-router-dom";
-import moment from "moment";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
+import { makeRequest } from "../../axios";
 import { RightBarContext } from "../../context/rightBarContext";
 
 const RightBar = () => {
-  const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const { rightBarOpen } = useContext(RightBarContext);
 

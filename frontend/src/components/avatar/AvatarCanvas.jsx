@@ -1,11 +1,8 @@
 import "./avatarCanvas.scss";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { Html, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { useEffect, useState, useContext } from "react";
-import { AvatarAnimationContext } from "../../context/AvatarAnimationContext";
-import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
+import { useEffect, useMemo } from "react";
 import { makeRequest } from "../../axios";
 
 const AvatarModel = ({
@@ -14,39 +11,24 @@ const AvatarModel = ({
   animationIndex,
   setAnimationIndex,
 }) => {
-  //  const avatarUser = useGLTF("/upload/avatar" + userId + ".glb");
   const avatarModel = useGLTF("/upload/avatarModel" + ".glb");
   const avatarUser = useGLTF(userAvatar);
 
-  const anim = avatarModel.scene;
-  const animClone = SkeletonUtils.clone(anim);
-  //avatarUser.scene = animClone;
+  const clock = useMemo(() => new THREE.Clock(), []);
 
-  const clock = new THREE.Clock();
-  // const { actions, names } = useAnimations(
-  //   avatarModel.animations,
-  //   avatarModel.scene
-  // );
+  const mixer = useMemo(
+    () => new THREE.AnimationMixer(avatarUser.scene),
+    [avatarUser.scene]
+  );
 
-  const mixer = new THREE.AnimationMixer(avatarUser.scene);
   const actions = [];
   avatarModel.animations.forEach((clip) => {
     actions.push(mixer.clipAction(clip));
   });
 
-  //console.log(actions);
-  console.log(animationIndex);
-  //actions[0].play();
-
   const actionDied = actions[0];
   const actionExcited = actions[1];
   const actionPunch = actions[10];
-
-  //console.log(actionExcited);
-  //console.log(userId);
-  //const actionDied = actions[names[0]];
-  //const actionExcited = actions[names[1]];
-  //const actionPunch = actions[names[10]];
 
   useEffect(() => {
     let requestID;
@@ -73,7 +55,7 @@ const AvatarModel = ({
         }
       });
     };
-  }, [mixer, avatarUser.scene]);
+  }, [mixer, avatarUser.scene, clock]);
 
   useEffect(() => {
     if (animationIndex === 0) {

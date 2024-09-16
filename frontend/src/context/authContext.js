@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -10,14 +9,18 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    const res = await axios.post(
-      "https://houme-web.onrender.com/api/auth/login",
-      inputs,
-      {
-        withCredentials: true,
-      }
-    );
-    setCurrentUser(res.data);
+    try {
+      const res = await axios.post(
+        "https://houme-web.onrender.com/api/auth/login",
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
+      setCurrentUser(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

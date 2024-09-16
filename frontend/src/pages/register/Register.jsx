@@ -20,6 +20,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [avatarData, setAvatarData] = useState(null);
   const [err, setErr] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setInputs((prev) => ({
@@ -59,7 +60,7 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const gen = inputs.gender === "female" ? "female" : "male";
     let random = Math.floor(Math.random() * 10) + 1;
     if (gen === "male") random += 10;
@@ -106,6 +107,7 @@ const Register = () => {
           navigate("/login");
         } catch (err) {
           setErr(err.response.data);
+          setIsLoading(false);
         }
       };
       registerUser();
@@ -179,7 +181,9 @@ const Register = () => {
               </div>
             </fieldset>
             {err && err}
-            <button onClick={handleClick}>Register</button>
+            <button onClick={handleClick} disabled={isLoading ? true : false}>
+              {isLoading ? "Loading..." : "Register"}
+            </button>
           </form>
         </div>
       </div>

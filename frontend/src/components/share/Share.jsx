@@ -1,15 +1,18 @@
 import { useContext, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import "./share.scss";
+
 import ImageIcon from "@mui/icons-material/Image";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import "./share.scss";
+
 import { AuthContext } from "../../context/authContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 
 const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
 
   const upload = async () => {
     try {
@@ -22,13 +25,10 @@ const Share = () => {
     }
   };
 
-  const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (newPost) => {
       return makeRequest.post("/posts", newPost);
     },
-
     onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
     },

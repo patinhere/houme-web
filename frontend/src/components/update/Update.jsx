@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "./update.scss";
 import { makeRequest } from "../../axios";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMatch } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Update = ({ setOpenUpdate, user }) => {
   const [texts, setTexts] = useState({

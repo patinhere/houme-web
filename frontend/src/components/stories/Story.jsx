@@ -1,13 +1,9 @@
-import { useContext } from "react";
 import "./stories.scss";
-import { AuthContext } from "../../context/authContext";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link } from "react-router-dom";
 
 const Story = ({ index }) => {
-  const { currentUser } = useContext(AuthContext);
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["story", index],
     queryFn: () =>

@@ -1,5 +1,11 @@
 @import "../../style.scss";
 
+button:disabled,
+button[disabled] {
+  background-color: #cccccc !important;
+  cursor: not-allowed !important;
+}
+
 .login {
   height: 100vh;
   background-color: #f9f9f9;

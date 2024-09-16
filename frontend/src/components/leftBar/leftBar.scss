@@ -3,22 +3,23 @@
 .leftBar {
   flex: 1;
   position: sticky;
-  top: 57px;
-  height: calc(100vh - 70px);
+  top: 57px !important;
+  height: calc(100vh - 75px);
   overflow: scroll;
   z-index: 1000;
 
   &.open {
     @include mobile() {
       position: fixed;
-      top: 55px;
+      top: 75px !important;
       left: 0px;
       width: 200px;
       height: 100%;
+      background-color: black;
     }
     @include tablet() {
       position: fixed;
-      top: 60px;
+      top: 75px !important;
       left: 0px;
       width: 200px;
       height: 100%;

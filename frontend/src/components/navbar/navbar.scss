@@ -145,24 +145,14 @@
     }
   }
   button {
-    position: absolute;
     display: flex;
     align-items: center;
-    top: 55px;
-    right: 0px;
-    border-radius: 5px;
-    border: 1px solid lightgrey;
     background-color: white;
-    padding: 10px 40px;
-    border-top: none;
+    padding: 10px;
+    border: none;
     cursor: pointer;
-    @include mobile() {
-      top: 40px;
-    }
-    @include mobile() {
-      top: 40px;
-    }
   }
+
   .rightSideBarButton {
     // position: absolute;
     // right: 10px;
