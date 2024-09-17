@@ -1,5 +1,10 @@
 import express from "express";
 import cors from "cors";
+import multer from "multer";
+import * as dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+
+// routes
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import commentRoutes from "./routes/comments.js";
@@ -11,13 +16,9 @@ import suggestionRoutes from "./routes/suggestions.js";
 import historyRoutes from "./routes/history.js";
 import uploadAvatar from "./routes/uploadAvatar.js";
 import getAvatar from "./routes/getAvatar.js";
-import cookieParser from "cookie-parser";
-import multer from "multer";
-import * as dotenv from "dotenv";
+
 dotenv.config();
-
 const app = express();
-
 const allowedOrigins = ["https://houme.onrender.com", "http://localhost:3000"];
 
 const corsOptions = {
@@ -33,18 +34,14 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(cookieParser());
-
 app.use(express.json());
-
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);
   }
   res.header("Access-Control-Allow-Credentials", "true");
-
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header(
     "Access-Control-Allow-Headers",
@@ -53,6 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../frontend/public/upload");
@@ -63,12 +61,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
 app.post("/api/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   res.status(200).json(file.filename);
 });
 
+// routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
@@ -81,25 +79,7 @@ app.use("/api/getAvatar", getAvatar);
 app.use("/api/suggestions", suggestionRoutes);
 app.use("/api/history", historyRoutes);
 
-// app.get("/profile", (req, res) => {
-//   const q = "SELECT * FROM profiles";
-//   db.query(q, (err, data) => {
-//     if (err) return res.json(err);
-//     return res.json(data);
-//   });
-// });
-
-// app.post("/profile", (req, res) => {
-//   const q = "INSERT INTO Persontest (`username`,`email`,`password`) VALUES (?)";
-//   const values = ["usertest", "emailtest", "passwordtest"];
-//   db.query(q, [values], (err, data) => {
-//     if (err) return res.json(err);
-//     return res.json("success creating");
-//   });
-// });
-
 const Port = process.env.PORT;
-
 app.listen(Port, () => {
   console.log("Connected");
 });
