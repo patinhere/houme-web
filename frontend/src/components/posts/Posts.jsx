@@ -15,13 +15,11 @@ const Posts = ({ userId }) => {
 
   return (
     <div className="posts">
-      {error ? (
-        <Navigate to="/login" />
-      ) : isLoading ? (
-        "loading"
-      ) : (
-        data.map((post) => <Post post={post} key={post.id} />)
-      )}
+      {/* {error ? (
+        <Navigate to="/login" /> */}
+      {isLoading
+        ? "loading"
+        : data.map((post) => <Post post={post} key={post.id} />)}
     </div>
   );
 };
