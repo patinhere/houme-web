@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 // multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../frontend/public/upload");
+    cb(null, path.resolve(__dirname, "../frontend/public/upload"));
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
