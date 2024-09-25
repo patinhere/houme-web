@@ -14,13 +14,14 @@ export const getPosts = (req, res) => {
     const q = userProfileId
       ? `SELECT p.*, u.id AS userId, name, avatarHead FROM posts AS p JOIN users AS u 
       ON (u.id = p.userId) WHERE p.userId=? ORDER BY p.createdTime DESC`
-      : `SELECT p.*, u.id AS userId, name, avatarHead FROM posts AS p JOIN users AS u 
-      ON (u.id = p.userId) LEFT JOIN relationship AS r
-      ON (p.userId = r.followedUserId)  WHERE (r.followerUserId = ? OR p.userId = ?)  
+      : `SELECT p.*, u.id AS userId, name, avatarHead FROM posts AS p   
       ORDER BY p.createdTime DESC `;
+    // JOIN users AS u
+    // ON (u.id = p.userId) LEFT JOIN relationship AS r
+    // ON (p.userId = r.followedUserId)  WHERE (r.followerUserId = ? OR p.userId = ?)
 
-    const values = userProfileId ? [userProfileId] : [userInfo.id, userInfo.id];
-
+    const values = userProfileId ? [userProfileId] : [];
+    //userInfo.id, userInfo.id
     db.query(q, values, (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json(data);
