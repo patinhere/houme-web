@@ -10,6 +10,7 @@ import { makeRequest } from "../../axios";
 
 const Share = () => {
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
@@ -30,13 +31,14 @@ const Share = () => {
       return makeRequest.post("/posts", newPost);
     },
     onSuccess: () => {
+      setLoading(false);
       queryClient.invalidateQueries(["posts"]);
     },
   });
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     let imgUrl = "";
     if (file) imgUrl = await upload();
 
@@ -94,7 +96,9 @@ const Share = () => {
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button disabled={loading} onClick={handleClick}>
+              {loading ? "Loading.." : "Share"}
+            </button>
           </div>
         </div>
       </div>
