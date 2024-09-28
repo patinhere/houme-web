@@ -78,6 +78,10 @@ const Login = () => {
             <button onClick={handleLogin} disabled={isLoading ? true : false}>
               {isLoading ? "Loading..." : "Log In"}
             </button>
+            <p style={{ color: "grey" }}>
+              Test <br /> username:toto <br />
+              password:1234
+            </p>
           </form>
         </div>
       </div>
